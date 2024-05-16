@@ -37,25 +37,36 @@ def get_logger() -> logging.Logger:
     return logger
 
 
-class RedactingFormatter(logging.Formatter):
-    """ Redacting Formatter class
-        """
+def get_db():
+    pass
 
-    REDACTION = "***"
-    FORMAT = "[HOLBERTON] %(name)s %(levelname)s %(asctime)-15s: %(message)s"
-    SEPARATOR = ";"
 
-    def __init__(self, fields: List[str]):
-        '''
-            initialize
-        '''
-        super(RedactingFormatter, self).__init__(self.FORMAT)
-        self.fields = fields
+def main():
+    class RedactingFormatter(logging.Formatter):
+        """ Redacting Formatter class
+            """
 
-    def format(self, record: logging.LogRecord) -> str:
-        '''
-            return the format desired
-        '''
-        msg = super(RedactingFormatter, self).format(record)
-        text = filter_datum(self.fields, self.REDACTION, msg, self.SEPARATOR)
-        return text
+        REDACTION = "***"
+        FORMAT = "[HOLBERTON] %(name)s\
+                    %(levelname)s %(asctime)-15s: %(message)s"
+        SEPARATOR = ";"
+
+        def __init__(self, fields: List[str]):
+            '''
+                initialize
+            '''
+            super(RedactingFormatter, self).__init__(self.FORMAT)
+            self.fields = fields
+
+        def format(self, record: logging.LogRecord) -> str:
+            '''
+                return the format desired
+            '''
+            msg = super(RedactingFormatter, self).format(record)
+            text = filter_datum(self.fields,
+                                self.REDACTION, msg, self.SEPARATOR)
+            return text
+
+
+if __name__ == "__main__":
+    main()
