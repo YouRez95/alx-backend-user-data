@@ -9,7 +9,7 @@ import re
 
 
 def filter_datum(fields: List[str],
-                 redaction: str, message: str, separator: str):
+                 redaction: str, message: str, separator: str) -> str:
     '''
         function use a regex to replace
         occurrences of certain field value
