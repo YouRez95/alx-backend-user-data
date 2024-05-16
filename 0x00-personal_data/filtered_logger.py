@@ -38,6 +38,9 @@ def get_logger() -> logging.Logger:
 
 
 def get_db():
+    '''
+        get db
+    '''
     pass
 
 
