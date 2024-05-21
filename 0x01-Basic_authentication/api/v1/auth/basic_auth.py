@@ -61,7 +61,10 @@ class BasicAuth(Auth):
 
         if ':' in decoded_base64_authorization_header:
             user_pass = decoded_base64_authorization_header.split(':')
-            return (user_pass[0], user_pass[1])
+            username = user_pass[0]
+            password = ':'.join(user_pass[1:])
+            print('testtest', username, password)
+            return (username, password)
         return (None, None)
 
     def user_object_from_credentials(
