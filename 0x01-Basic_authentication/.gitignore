@@ -1,1 +1,4 @@
 env
+api/__pychache__
+api/v1/__pychache__
+api/v1/views/__pychache__
