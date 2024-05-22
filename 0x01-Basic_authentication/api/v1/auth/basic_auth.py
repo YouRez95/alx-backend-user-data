@@ -65,7 +65,6 @@ class BasicAuth(Auth):
             user_pass = decoded_base64_authorization_header.split(':')
             username = user_pass[0]
             password = ':'.join(user_pass[1:])
-            print('testtest', username, password)
             return (username, password)
         return (None, None)
 
