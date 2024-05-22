@@ -5,7 +5,6 @@
         Auth
 '''
 
-from flask import request
 from typing import List, TypeVar
 
 
@@ -24,6 +23,13 @@ class Auth:
         if path[-1:] != '/':
             second_path = path + '/'
             if second_path in excluded_paths:
+                return False
+
+        # allow * in excluded_paths
+        for subpath in excluded_paths:
+            subpath_extracted = subpath.split('*')[0]
+            length = len(subpath_extracted)
+            if path[:length] == subpath_extracted:
                 return False
         if path in excluded_paths:
             return False

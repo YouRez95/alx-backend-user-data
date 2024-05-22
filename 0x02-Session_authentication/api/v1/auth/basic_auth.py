@@ -47,6 +47,8 @@ class BasicAuth(Auth):
             return decoded
         except UnicodeDecodeError:
             return None
+        except binascii.Error:
+            return None
 
     def extract_user_credentials(
                 self,
@@ -76,7 +78,10 @@ class BasicAuth(Auth):
                 not isinstance(user_email, str) or
                 user_pwd is None or not isinstance(user_pwd, str)):
             return None
-        user = User.search({'email': user_email})
+        try:
+            user = User.search({'email': user_email})
+        except KeyError:
+            return None
         if not user or not user[0]:
             return None
         is_valid = user[0].is_valid_password(user_pwd)
