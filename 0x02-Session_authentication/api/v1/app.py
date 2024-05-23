@@ -17,16 +17,26 @@ auth = None
 
 auth_type = getenv('AUTH_TYPE', None)
 
-match auth_type:
-    case 'auth':
-        from api.v1.auth.auth import Auth
-        auth = Auth()
-    case 'basic_auth':
-        from api.v1.auth.basic_auth import BasicAuth
-        auth = BasicAuth()
-    case 'session_auth':
-        from api.v1.auth.session_auth import SessionAuth
-        auth = SessionAuth()
+if auth_type == 'auth':
+    from api.v1.auth.auth import Auth
+    auth = Auth()
+elif auth_type == 'basic_auth':
+    from api.v1.auth.basic_auth import BasicAuth
+    auth = BasicAuth()
+elif auth_type == 'session_auth':
+    from api.v1.auth.session_auth import SessionAuth
+    auth = SessionAuth()
+
+# match auth_type:
+#     case 'auth':
+#         from api.v1.auth.auth import Auth
+#         auth = Auth()
+#     case 'basic_auth':
+#         from api.v1.auth.basic_auth import BasicAuth
+#         auth = BasicAuth()
+#     case 'session_auth':
+#         from api.v1.auth.session_auth import SessionAuth
+#         auth = SessionAuth()
 
 
 @app.before_request
