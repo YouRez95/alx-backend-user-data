@@ -104,5 +104,4 @@ class BasicAuth(Auth):
             return None
         user = self.extract_user_credentials(decoded_base64)
         user = self.user_object_from_credentials(user[0], user[1])
-        print("user", user)
         return user
