@@ -9,9 +9,9 @@ from models.user import User
 
 @app_views.route('/auth_session/login', methods=['POST'], strict_slashes=False)
 def session_route() -> str:
-    """ GET /api/v1/status
+    """ GET /api/v1/auth_session/login
     Return:
-      - the status of the API
+      - login the user, respond with session id
     """
     email = request.form.get('email')
     password = request.form.get('password')
@@ -36,3 +36,17 @@ def session_route() -> str:
     out = jsonify(user[0].to_json())
     out.set_cookie(os.getenv('SESSION_NAME'), session_id)
     return out
+
+
+@app_views.route('/auth_session/logout',
+                 methods=['DELETE'], strict_slashes=False)
+def logout() -> str:
+    """ GET /api/v1/auth_session/logout
+    Return:
+      - delete the sessionId
+    """
+    from api.v1.app import auth
+    is_deleted = auth.destroy_session(request)
+    if is_deleted is False:
+        abort(404)
+    return jsonify({}), 200
