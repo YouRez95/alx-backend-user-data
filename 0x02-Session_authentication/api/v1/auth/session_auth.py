@@ -7,4 +7,7 @@
 
 
 class SessionAuth:
+    '''
+        class session Auth
+    '''
     pass
