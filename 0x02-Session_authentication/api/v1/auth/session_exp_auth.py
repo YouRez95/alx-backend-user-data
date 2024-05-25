@@ -20,7 +20,7 @@ class SessionExpAuth(SessionAuth):
             initiate the duration
         '''
         try:
-            self.session_duration = int(os.getenv('SESSION_DURATION'))
+            self.session_duration = int(os.getenv('SESSION_DURATION', 0))
         except ValueError:
             self.session_duration = 0
 
