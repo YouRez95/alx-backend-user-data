@@ -3,7 +3,6 @@
     DB module
 """
 from sqlalchemy import create_engine
-from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.session import Session
 from sqlalchemy.exc import InvalidRequestError
@@ -43,17 +42,20 @@ class DB:
         self._session.commit()
         return new_user
 
-    def find_user_by(self, **args):
+    def find_user_by(self, **kwargs):
         '''
             find user by argument and return it
         '''
-        for key, value in args.items():
-            try:
-                result = self._session.query(User)\
-                                .filter_by(**{key: value})[0:1]
-            except InvalidRequestError:
+
+        if not kwargs:
+            raise InvalidRequestError
+        column_names = User.__table__.columns.keys()
+        for key in kwargs:
+            if key not in column_names:
                 raise InvalidRequestError
-        if len(result) == 1:
-            return result[0]
-        else:
+
+        result = self._session.query(User).filter_by(**kwargs).first()
+
+        if result is None:
             raise NoResultFound
+        return result
