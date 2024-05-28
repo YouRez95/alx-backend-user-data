@@ -46,9 +46,6 @@ class DB:
         '''
             find user by argument and return it
         '''
-
-        if not kwargs:
-            raise InvalidRequestError
         column_names = User.__table__.columns.keys()
         for key in kwargs:
             if key not in column_names:
