@@ -6,7 +6,7 @@
 import bcrypt
 
 
-def _hash_password(plain_text_pass: str) -> bytes:
+def _hash_password(plain_text_pass: str) -> str:
     '''
         hash the password
     '''
