@@ -5,7 +5,7 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.session import Session
-from sqlalchemy.exc import InvalidRequestError
+from sqlalchemy.exc import InvalidRequestError, NoResultFound
 from sqlalchemy.orm.exc import NoResultFound
 from user import Base, User
 
@@ -46,11 +46,10 @@ class DB:
         '''
             find user by argument and return it
         '''
-
         if not kwargs:
             raise InvalidRequestError
         column_names = User.__table__.columns.keys()
-        for key in kwargs:
+        for key in kwargs.keys():
             if key not in column_names:
                 raise InvalidRequestError
 
