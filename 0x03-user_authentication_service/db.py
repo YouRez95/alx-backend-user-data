@@ -42,7 +42,7 @@ class DB:
         self._session.commit()
         return new_user
 
-    def find_user_by(self, **kwargs):
+    def find_user_by(self, **kwargs) -> User:
         '''
             find user by argument and return it
         '''
