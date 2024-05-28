@@ -6,8 +6,8 @@
 import bcrypt
 
 
-def _hash_password(plain_text_pass: str) -> str:
+def _hash_password(password: str) -> bytes:
     '''
         hash the password
     '''
-    return bcrypt.hashpw(plain_text_pass.encode(), bcrypt.gensalt())
+    return bcrypt.hashpw(password.encode(), bcrypt.gensalt())
