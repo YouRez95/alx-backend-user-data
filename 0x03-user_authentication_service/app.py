@@ -53,8 +53,8 @@ def login():
     return response
 
 
-@app.route('/logout', methods=['DELETE'])
-def login():
+@app.route('/sessions', methods=['DELETE'])
+def logout():
     '''
         route that can logout user
     '''
