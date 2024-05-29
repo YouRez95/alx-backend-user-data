@@ -65,8 +65,9 @@ class Auth:
         try:
             user = self._db.find_user_by(email=email)
             session_id = _generate_uuid()
-            user.session_id = session_id
-            self._db._session.commit()
+            # user.session_id = session_id
+            # self._db._session.commit()
+            self._db.update_user(user.id, session_id=session_id)
             return session_id
         except NoResultFound:
             return None
@@ -80,5 +81,15 @@ class Auth:
         try:
             user = self._db.find_user_by(session_id=session_id)
             return user
+        except NoResultFound:
+            return None
+
+    def destroy_session(self, user_id: int) -> None:
+        '''
+            destroy session
+        '''
+        try:
+            self._db.find_user_by(id=user_id)
+            self._db.update_user(user_id, session_id=None)
         except NoResultFound:
             return None
