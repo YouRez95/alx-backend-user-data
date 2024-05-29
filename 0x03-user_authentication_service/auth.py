@@ -3,6 +3,7 @@
     auth module
 """
 
+from typing import Union
 import uuid
 import bcrypt
 
@@ -70,7 +71,7 @@ class Auth:
         except NoResultFound:
             return None
 
-    def get_user_from_session_id(self, session_id: str) -> User | None:
+    def get_user_from_session_id(self, session_id: str) -> Union[User, None]:
         '''
             search the user by session id
         '''
